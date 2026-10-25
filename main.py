@@ -766,7 +766,7 @@ class Bot:
         btns2 = types.KeyboardButton("📘 Docs")
         btns3 = types.KeyboardButton("📊 Статистика интеграции")
         
-        self.markup3.add(btns1,btns4,btns45,btns2,btns3)
+        self.markup3.add(btns4,btns45,btns2,btns3)
 
         
         self.markup2d = types.ReplyKeyboardMarkup(resize_keyboard=True)
