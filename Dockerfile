@@ -1,6 +1,6 @@
 FROM python:3.11-slim
 
-# Системные зависимости (добавлен xauth)
+# Системные зависимости
 RUN apt-get update && apt-get install -y --no-install-recommends \
     chromium \
     chromium-driver \
@@ -29,17 +29,16 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 ENV CHROME_BIN=/usr/bin/chromium
 ENV CHROMEDRIVER_PATH=/usr/bin/chromedriver
 
+# 🔥 ДОБАВЬ ЭТУ СТРОКУ:
+ENV PYTHONUNBUFFERED=1
+
 WORKDIR /app
 
-# Копируем зависимости
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Копируем весь код
 COPY . .
 
-# Создаём папки для данных
 RUN mkdir -p data images/photos keys video
 
-# Запуск через xvfb
 CMD ["xvfb-run", "--auto-servernum", "--server-args=-screen 0 1920x1080x24", "python", "main.py"]
