@@ -4070,7 +4070,7 @@ def search_game(title, platform="nswitch", exact=False):
                 bot.routes[message.from_user.id]['route']='chat_order'
                 bot.routes[message.from_user.id]['chat_order']=coll
            #     bot.my_bot.send_message(message.from_user.id, f"Вы перешли в чат по заказу {coll}. Ваш менеджер: {bot.great_dic[coll]["Менеджер"]}\nНапишите \"Закончить чат\", чтобы вернуться в основной режим работы бота")
-                bot.my_bot.send_message(message.from_user.id, f"Вы перешли в чат по заказу {coll}. Ваш менеджер: {bot.great_dic[coll]["Менеджер"]}")
+                bot.my_bot.send_message(message.from_user.id, f"Вы перешли в чат по заказу {coll}. Ваш менеджер: {bot.great_dic[coll]['Менеджер']}")
             else:
                 bot.my_bot.send_message(message.from_user.id, "К сожалению, чат не найден")
 
