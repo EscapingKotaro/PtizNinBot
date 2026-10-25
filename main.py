@@ -5860,7 +5860,7 @@ def callback_message(callback):
                 bot.routes[callback.message.chat.id]['route']='chat_order'
                 bot.routes[callback.message.chat.id]['chat_order']=coll
                # bot.my_bot.send_message(callback.message.chat.id, f"Вы перешли в чат по заказу {coll}. Ваш менеджер: {bot.great_dic[coll]["Менеджер"]}\nНапишите \"Закончить чат\", чтобы вернуться в основной режим работы бота")
-                bot.my_bot.send_message(callback.message.chat.id, f"Вы перешли в чат по заказу {coll}. Ваш менеджер: {bot.great_dic[coll]["Менеджер"]}\n")
+                bot.my_bot.send_message(callback.message.chat.id, f"Вы перешли в чат по заказу {coll}. Ваш менеджер: {bot.great_dic[coll]['Менеджер']}\n")
             else:
                 bot.my_bot.send_message(callback.message.chat.id, "К сожалению, чат не найден")
         elif id1=='killz':
