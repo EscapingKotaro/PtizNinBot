@@ -5654,7 +5654,7 @@ def callback_message(callback):
                 else:
 
                     #
-                    order2={'Дата':bot.get_day(),'Заказ':f"Код пополнения {order["item"]["Наименование"]}",'Менеджер':'','Клиент':callback.from_user.id,'Статус':'Создан','Цена':float(order["item"]["Цена в рублях"]),'Профит':float(order["item"]["Цена в рублях"])-float(order["item"]["Себестоимость в рублях"]),'stga':"",'stpusa':-1,"Номер":mid}
+                    order2={'Дата':bot.get_day(),'Заказ':f"Код пополнения {order['item']['Наименование']}",'Менеджер':'','Клиент':callback.from_user.id,'Статус':'Создан','Цена':float(order["item"]["Цена в рублях"]),'Профит':float(order["item"]["Цена в рублях"])-float(order["item"]["Себестоимость в рублях"]),'stga':"",'stpusa':-1,"Номер":mid}
    
                     stg=order2['Заказ']
                     stp=order2['Цена']
@@ -5814,7 +5814,7 @@ def callback_message(callback):
                 else:
 
                     #
-                    order2={'Дата':bot.get_day(),'Заказ':f"Код пополнения {order["item"]["Наименование"]}",'Менеджер':'','Клиент':callback.from_user.id,'Статус':'Создан','Цена':order["item"]["Цена в рублях"],'Профит':float(order["item"]["Цена в рублях"])-float(order["item"]["Себестоимость в рублях"]),'stga':"",'stpusa':-1,"Номер":mid}
+                    order2={'Дата':bot.get_day(),'Заказ':f"Код пополнения {order['item']['Наименование']}",'Менеджер':'','Клиент':callback.from_user.id,'Статус':'Создан','Цена':order["item"]["Цена в рублях"],'Профит':float(order["item"]["Цена в рублях"])-float(order["item"]["Себестоимость в рублях"]),'stga':"",'stpusa':-1,"Номер":mid}
    
                     stg=order2['Заказ']
                     stp=order2['Цена']
