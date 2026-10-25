@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  prizninbot:
+    build: .
+    container_name: priznin_bot
+    env_file:
+      - .env
+    restart: unless-stopped
+    volumes:
+      - bot_data:/app/data
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+volumes:
+  bot_data:
+    name: priznin_bot_data
