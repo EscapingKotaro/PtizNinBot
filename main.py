@@ -2651,7 +2651,7 @@ class Bot:
             return None
         try:
             r = requests.get(
-                    CNDK_API_BASE + "/ext/v1/purchase-prices/games",  # ← только эндпоинт поменялся
+                    CNDK_API_BASE + "ext/v1/purchase-prices/games",  # ← только эндпоинт поменялся
                     params={"query": q, "limit": 20,
         "include_disabled": "true",       # <-- добавлено
         "exclude_source_regions": "BR",
