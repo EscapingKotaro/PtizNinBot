@@ -3705,9 +3705,9 @@ def get_text_messages(message):
         elif message.text=='🔎 Поиск игры' or message.text=='/search':
             bot.routes[message.from_user.id]['route']='search'
             bot.my_bot.send_message(message.from_user.id, "Пожалуйста, отправьте название интересующей игры или дополнения для поиска в eShop", reply_markup=markup)
-        elif message.text=='Пользователи' and str(message.from_user.id) in bot.ids:
+        elif message.text=='👥 Пользователи' and str(message.from_user.id) in bot.ids:
             bot.au_start(message)
-        elif message.text=='Список игр' and str(message.from_user.id) in bot.ids:
+        elif message.text=='🎮 Список игр' and str(message.from_user.id) in bot.ids:
             bot.au_game(message)
         elif message.text=='/reload' and str(message.from_user.id) in bot.ids:
             bot.reload_popup()
@@ -3758,30 +3758,27 @@ def get_text_messages(message):
             
             btn88= types.KeyboardButton("🧧 Nintendo Switch Online")
             
-            sub_button4 = telebot.types.KeyboardButton('Назад')
+            sub_button4 = telebot.types.KeyboardButton('🔙 Назад')
             markup3.add(btn1, btn5,btn6,btn87,btn88,btn9,sub_button4)
             bot.my_bot.send_message(message.from_user.id, prv, parse_mode='HTML', reply_markup=markup3)
         elif message.text=='👨‍💻 Админ' and str(message.from_user.id) in bot.ids:
             
             prv='👨‍💻 Админ'
             markup3 = telebot.types.ReplyKeyboardMarkup(resize_keyboard=True)
-            btn1 = types.KeyboardButton("Пользователи")
-            btn3 = types.KeyboardButton("Рассылки")
+            btn1 = types.KeyboardButton("👥 Пользователи")
+            btn3 = types.KeyboardButton("📢 Рассылки")
             btns45 = types.KeyboardButton("🔗 Создать ссылку на игру")
           #  btns445 = types.KeyboardButton("Новое промо") btns445,
             btn_promo = types.KeyboardButton("🎟 Управление промо")
             
-            btn7= types.KeyboardButton("🌟 Избранное")
-            btn8= types.KeyboardButton("🛒 Корзина")
-            btn9= types.KeyboardButton("📜 Другое")
             
             btn87= types.KeyboardButton("💰 Коды пополнения")
             
             btn88= types.KeyboardButton("🧧 Nintendo Switch Online")
             
-            sub_button4 = telebot.types.KeyboardButton('Назад')
+            sub_button4 = telebot.types.KeyboardButton('🔙 Назад')
             
-            markup3.add(btn1,btn3,btn7,btns45,btn_promo,btn8,btn9,btn87,btn88,sub_button4)
+            markup3.add(btn1,btn3,btns45,btn_promo,btn87,btn88,sub_button4)
             bot.my_bot.send_message(message.from_user.id, prv, parse_mode='HTML', reply_markup=markup3)
         elif message.text=='🤝 Партнер' and str(message.from_user.id) in bot.ids:
             
@@ -3792,28 +3789,28 @@ def get_text_messages(message):
             btns2 = types.KeyboardButton("📘 Docs")
             btns3 = types.KeyboardButton("📊 Статистика интеграции")
             
-            sub_button4 = telebot.types.KeyboardButton('Назад')
+            sub_button4 = telebot.types.KeyboardButton('🔙 Назад')
             markup3.add(btns1,btns4,btns45,btns2,btns3,sub_button4)
 
             bot.my_bot.send_message(message.from_user.id, prv, parse_mode='HTML', reply_markup=markup3)
-        elif message.text=='Рассылки' and str(message.from_user.id) in bot.ids:
+        elif message.text=='📢 Рассылки' and str(message.from_user.id) in bot.ids:
             
             prv='Рассылки'
             markup3 = telebot.types.ReplyKeyboardMarkup(resize_keyboard=True)
-            btn2 = types.KeyboardButton("Список игр")
-            btn6 = types.KeyboardButton("Обновить данные")
-            sub_button1 = telebot.types.KeyboardButton('Обычная рассылка')
-            sub_button2 = telebot.types.KeyboardButton('Рассылка о скидках')
-            sub_button4 = telebot.types.KeyboardButton('Назад')
+            btn2 = types.KeyboardButton("🎮 Список игр")
+            btn6 = types.KeyboardButton("🔄 Обновить данные")
+            sub_button1 = telebot.types.KeyboardButton('📨 Обычная рассылка')
+            sub_button2 = telebot.types.KeyboardButton('🔥 Рассылка о скидках')
+            sub_button4 = telebot.types.KeyboardButton('🔙 Назад')
             markup3.add(btn2,btn6,sub_button1, sub_button2,sub_button4 )
             bot.my_bot.send_message(message.from_user.id, prv, parse_mode='HTML', reply_markup=markup3)
-        elif message.text=='Обычная рассылка' and str(message.from_user.id) in bot.ids:
+        elif message.text=='📨 Обычная рассылка' and str(message.from_user.id) in bot.ids:
             bot.au_rassu(message)
-        elif message.text=='Рассылка о скидках' and str(message.from_user.id) in bot.ids:
+        elif message.text=='🔥 Рассылка о скидках' and str(message.from_user.id) in bot.ids:
             bot.au_lpr(message)
         elif message.text=='Добавить фото' and str(message.from_user.id) in bot.ids:
             bot.au_photo(message)
-        elif message.text=='Обновить данные' and str(message.from_user.id) in bot.ids:
+        elif message.text=='🔄 Обновить данные' and str(message.from_user.id) in bot.ids:
             bot.au_update()
 
         
@@ -4484,7 +4481,7 @@ def search_game(title, platform="nswitch", exact=False):
 /price_help - справка по работе с ценами
 /month_stat - статистика за последние 30 дней
 ''', reply_markup=markup)
-        elif message.text=='Назад':
+        elif message.text=='🔙 Назад':
             bot.my_bot.send_message(message.from_user.id, 'Вы вернулись в главное меню', reply_markup=markup)
         elif message.text=="💰 Коды пополнения":
             markupin=types.InlineKeyboardMarkup()
@@ -4506,16 +4503,16 @@ def search_game(title, platform="nswitch", exact=False):
         elif message.text=='📜 Другое':
             prv='📜 Другое'
             markup3 = telebot.types.ReplyKeyboardMarkup(resize_keyboard=True)
-            sub_button1 = telebot.types.KeyboardButton('FAQ')
-            sub_button2 = telebot.types.KeyboardButton('Наши ресурсы')
+            sub_button1 = telebot.types.KeyboardButton('❓ FAQ')
+            sub_button2 = telebot.types.KeyboardButton('🔗 Наши ресурсы')
         #    sub_button3 = telebot.types.KeyboardButton('Подписка Nintendo Switch Online')
-            sub_button5 = telebot.types.KeyboardButton('Сообщить о проблеме')
-            sub_button4 = telebot.types.KeyboardButton('Назад')
+            sub_button5 = telebot.types.KeyboardButton('🛠️ Сообщить о проблеме')
+            sub_button4 = telebot.types.KeyboardButton('🔙 Назад')
             markup3.add(sub_button1, sub_button2, sub_button5, sub_button4 )
             bot.my_bot.send_message(message.from_user.id, prv, reply_markup=markup3)
 
 
-        elif message.text=='FAQ': 
+        elif message.text=='❓ FAQ':
             prv='''
 ❓ Как работает наш бот для выгодной покупки игр Nintendo?
 🖐 От первого клика в боте до игры на вашем аккаунте вас отделяет всего 5 шагов:
@@ -4527,7 +4524,7 @@ def search_game(title, platform="nswitch", exact=False):
 ⚠️ Обратите внимание! Для покупки игры менеджеру необходимо войти на ваш аккаунт Nintendo. Мы гарантируем безопасность процедуры. Если вы всё-таки беспокоитесь по этому поводу, установите двухэтапную аутентификацию в настройках, поменяйте пароль после покупки игры или используйте отдельный аккаунт для покупок в боте.
             '''
             bot.my_bot.send_message(message.from_user.id, prv, reply_markup=markup)
-        elif message.text=='Сообщить о проблеме': 
+        elif message.text=='🛠️ Сообщить о проблеме':
             prv='''
             ✍️ Пожалуйста, опишите проблему с которой вы столкнулись!
             '''
@@ -4553,13 +4550,21 @@ def search_game(title, platform="nswitch", exact=False):
                 except:
                     pass
                     
-        elif message.text=='Наши ресурсы':
-            bot.my_bot.send_message(message.from_user.id, '''
-🌐 Наши ресурсы
-🟡 СУНДУК Премиум: t.me/cyndykshop
-🔴 СУНДУК Стандарт: t.me/cyndykshop_bp
-🔵 СУНДУК Playstation: t.me/cyndykpsn
-''', reply_markup=markup)
+        elif message.text == '🔗 Наши ресурсы':
+            resources_text = """🔗 <b>Наши ресурсы:</b>
+
+👑 <a href="https://t.me/cyndykshop">СУНДУК Nintendo (Премиум)</a>
+🎮 <a href="https://t.me/cyndykshop_bp">СУНДУК Nintendo (Стандарт)</a>
+🎮 <a href="https://t.me/cyndykpsn">СУНДУК Playstation</a>
+🎮 <a href="https://t.me/cyndykxbox">СУНДУК Xbox</a>
+🌐 <a href="http://cyndykshop.ru/">Наш сайт</a>"""
+
+            bot.my_bot.send_message(
+                message.from_user.id,
+                resources_text,
+                parse_mode='HTML',
+                reply_markup=markup
+            )
         elif message.text=='Подписка Nintendo Switch Online':
             bot.my_bot.send_message(message.from_user.id, '''
 🧧 Подписка Nintendo Switch Online открывает доступ к онлайн-функциям, а так же
@@ -4575,7 +4580,7 @@ def search_game(title, platform="nswitch", exact=False):
             bx = bot.great_box.get(user, [])
             
             if len(bx) == 0:
-                bot.my_bot.send_message(message.from_user.id, 'Ваша корзина пуста', reply_markup=markup)
+                bot.my_bot.send_message(message.from_user.id, 'Ваша корзина пуста')
             else:
                 # --- ПРОВЕРКА ПРОМОКОДА ДЛЯ ОТОБРАЖЕНИЯ В КОРЗИНЕ ---
                 promo_id = bot.routes.get(int(user), {}).get('active_promo')
