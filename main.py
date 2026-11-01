@@ -3790,7 +3790,7 @@ def get_text_messages(message):
             btns3 = types.KeyboardButton("📊 Статистика интеграции")
             
             sub_button4 = telebot.types.KeyboardButton('🔙 Назад')
-            markup3.add(btns1,btns4,btns45,btns2,btns3,sub_button4)
+            markup3.add(btns4,btns45,btns2,btns3,sub_button4)
 
             bot.my_bot.send_message(message.from_user.id, prv, parse_mode='HTML', reply_markup=markup3)
         elif message.text=='📢 Рассылки' and str(message.from_user.id) in bot.ids:
