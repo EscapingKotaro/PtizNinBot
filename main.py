@@ -642,7 +642,17 @@ class Bot:
         
         keyboard = self.build_keyboard(found_games, 0,message)
         caption = self.build_caption(found_games, 0,add_title=add_title)
-
+        if url_image!="":
+            self.my_bot.send_message(for_reports, "URL_IMAGE не пустой")
+            self.my_bot.send_photo(
+                    chat_id=for_reports,
+                    photo=url_image,  # Передаем файловый объект
+                    caption=caption,
+                    reply_markup=keyboard,
+                    parse_mode='HTML'
+                )
+        else:
+            self.my_bot.send_message(for_reports, "URL_IMAGE пустой")
         try:
             if found_games[0]['name'].lower() in ['comic book legends',"to leave"]:
                 a=1/0
@@ -1815,6 +1825,14 @@ class Bot:
             cou=0
             us=self.users.copy()
             imu=0
+            
+            url_image=""
+            if self.rassu_photo2!=-1:
+                url_image=self.rassu_photo2
+            if url_image=="":
+                url_image = bot.get_nice_popug()
+                bot.my_bot.send_message(for_reports,"Есть найс попуг")
+
             for key in us:
                 imu+=1
                 if imu%200==0:
@@ -1830,11 +1848,6 @@ class Bot:
                         self.routes[int(key)]['route']='gamelist'
                         self.routes[int(key)]['gamelist']=results
                         self.routes[int(key)]['gamelist545']=gamelist545
-                        url_image=""
-                        if self.rassu_photo2!=-1:
-                            url_image=self.rassu_photo2
-                        if url_image=="":
-                            url_image = bot.get_nice_popug()
                         self.handle_search("abu_daba",resultsabu,url_image,int(key),add_title=add_title)
                         cou+=1
                         
@@ -1857,30 +1870,9 @@ class Bot:
                         pass
                 
             for key in self.ids:
-            #    if str(key)!="5266773307": continue
                 if coll!=0:
-                   # if self.rassu_photo2!=-1:
-                     #   try:
-                    #        self.my_bot.send_photo(key,self.rassu_photo2)
-                    #    except:
-                    #        pass
                     ind=0
                     txt2=''
-                   # for st in arr:
-                       # txt2+=st
-                       # ind+=1
-                       # if ind>=30:
-                          #  try:
-                          #      self.my_bot.send_message(key, txt2, parse_mode='HTML')
-                           # except:
-                           #     pass
-                        #    ind=0
-                        #    txt2=''
-                   # if txt2!='':
-                       # try:
-                           # self.my_bot.send_message(key, txt2, parse_mode='HTML')
-                       # except:
-                       #     pass
                     try:
                         a=self.routes.get(int(key),dict())
                         if a==dict():
@@ -1888,9 +1880,6 @@ class Bot:
                         self.routes[int(key)]['route']='gamelist'
                         self.routes[int(key)]['gamelist']=results
                         self.routes[int(key)]['gamelist545']=gamelist545
-                        url_image=""
-                        if self.rassu_photo2!=-1:
-                            url_image=self.rassu_photo2
                         self.handle_search("abu_daba",resultsabu,url_image,int(key),add_title=add_title)
                     except:
                         bot.my_bot.send_message(for_reports, traceback.format_exc())
