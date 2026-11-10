@@ -1834,6 +1834,9 @@ class Bot:
                         url_image=""
                         if self.rassu_photo2!=-1:
                             url_image=self.rassu_photo2
+                        else:
+                            url_image = bot.get_nice_popug()
+                #with open(my_popug, 'rb') as photo:
                         self.handle_search("abu_daba",resultsabu,url_image,int(key),add_title=add_title)
                         cou+=1
                         
