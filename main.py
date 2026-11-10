@@ -642,15 +642,6 @@ class Bot:
         
         keyboard = self.build_keyboard(found_games, 0,message)
         caption = self.build_caption(found_games, 0,add_title=add_title)
-        if url_image!="":
-            self.my_bot.send_message(for_reports, "URL_IMAGE не пустой")
-            self.my_bot.send_photo(
-                    chat_id=for_reports,
-                    photo=url_image,  # Передаем файловый объект
-                    caption=caption,
-                    reply_markup=keyboard,
-                    parse_mode='HTML'
-                )
         else:
             self.my_bot.send_message(for_reports, "URL_IMAGE пустой")
         try:
@@ -1831,7 +1822,6 @@ class Bot:
                 url_image=self.rassu_photo2
             if url_image=="":
                 url_image = bot.get_nice_popug()
-                bot.my_bot.send_message(for_reports,"Есть найс попуг")
 
             for key in us:
                 imu+=1
