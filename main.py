@@ -642,8 +642,6 @@ class Bot:
         
         keyboard = self.build_keyboard(found_games, 0,message)
         caption = self.build_caption(found_games, 0,add_title=add_title)
-        else:
-            self.my_bot.send_message(for_reports, "URL_IMAGE пустой")
         try:
             if found_games[0]['name'].lower() in ['comic book legends',"to leave"]:
                 a=1/0
