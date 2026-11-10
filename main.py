@@ -689,10 +689,9 @@ class Bot:
     #    "<b><i>Жирный + курсив</i></b>\n"
         except:
             my_popug=self.get_nice_popug()
-            with open(my_popug, 'rb') as photo:
-                self.my_bot.send_photo(
+            self.my_bot.send_photo(
                     chat_id=user_id,
-                    photo=photo,  # Передаем файловый объект
+                    photo=my_popug,  # Передаем файловый объект
                     caption=caption,
                     reply_markup=keyboard,
                     parse_mode='HTML'
@@ -1158,29 +1157,29 @@ class Bot:
         
         
     def get_nice_popug(self):
-        directory_path= PHOTO_PATCH
-        if not os.path.exists(directory_path):
-            print(f"Ошибка: путь '{directory_path}' не существует.")
-            return POPUGEI_JPG
-        if not os.path.isdir(directory_path):
-            print(f"Ошибка: '{directory_path}' не является директорией.")
-            return POPUGEI_JPG
-    
-        # Получаем список файлов (исключаем поддиректории)
+        directory_path = PHOTO_PATCH
+        
+        # Вспомогательная функция, чтобы не дублировать код чтения
+        def read_to_bytesio(path):
+            with open(path, 'rb') as f:
+                return BytesIO(f.read())
+
+        # Если папки нет или это не папка — отдаем дефолтный файл
+        if not os.path.exists(directory_path) or not os.path.isdir(directory_path):
+            return read_to_bytesio(POPUGEI_JPG)
+
         try:
             files = [f for f in os.listdir(directory_path) if os.path.isfile(os.path.join(directory_path, f))]
         except PermissionError:
-            print(f"Ошибка: нет доступа к папке '{directory_path}'.")
-            return POPUGEI_JPG
-    
-        # Проверяем, есть ли файлы
+            files = []
+
+        # Если файлов нет — отдаем дефолтный
         if not files:
-            print(f"В папке '{directory_path}' нет файлов.")
-            return POPUGEI_JPG
-    
-        # Выбираем случайный файл
-        random_file = PHOTO_PATCH + "/"+random.choice(files)
-        return random_file
+            return read_to_bytesio(POPUGEI_JPG)
+
+        # Выбираем случайный файл и возвращаем его как BytesIO
+        random_file = os.path.join(directory_path, random.choice(files))
+        return read_to_bytesio(random_file)
         
     def check_num(self,num):
         
@@ -1834,9 +1833,8 @@ class Bot:
                         url_image=""
                         if self.rassu_photo2!=-1:
                             url_image=self.rassu_photo2
-                        else:
+                        if url_image=="":
                             url_image = bot.get_nice_popug()
-                #with open(my_popug, 'rb') as photo:
                         self.handle_search("abu_daba",resultsabu,url_image,int(key),add_title=add_title)
                         cou+=1
                         
@@ -4745,8 +4743,6 @@ def callback_message(callback):
             
             # Редактируем существующее сообщение
             try:
-                #my_popug=bot.get_nice_popug()
-                #with open(my_popug, 'rb') as photo:
                 photo = callback.message.photo[-1].file_id  # берём самое большое по размеру фото
                 bot.my_bot.edit_message_media(
                         chat_id=callback.message.chat.id,
