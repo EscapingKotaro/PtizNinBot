@@ -8,7 +8,9 @@ services:
       - .env
     restart: unless-stopped
     volumes:
-      - bot_data:/app/data
+      - ./data:/app/data
+      - ./keys:/app/keys
+      - ./images:/app/images
     logging:
       driver: json-file
       options:
