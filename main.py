@@ -407,7 +407,7 @@ class Bot:
         # Добавляем кнопки с играми для текущей страницы
         for game in games_on_page:
             # game - это словарь, например {'name': 'Cyberpunk 2077', 'url': 'https://store...', 'price': '1999 руб.'}
-            btn_text = f"{iii}. {self.trim_game_title(game['name'])} - {game['price']} ₽"
+            btn_text = f"{iii}. {self.trim_game_title(game['name'])} — {game['price']} ₽"
             if game['old_price']!=-1: btn_text="💸 "+btn_text
             keyboard.add(types.InlineKeyboardButton(text=btn_text, callback_data=f'selectgame_{str(iii)}${message_id}'))
 
@@ -718,9 +718,9 @@ class Bot:
         for i, game in enumerate(games_list[start_index:end_index], start=start_index + 1):
             #caption += f"{i}. {game['name']} - {game['price']}\n"
             if game['old_price']!=-1:
-                caption += f"{i}. 💸 {game['name']} - {game['price']} <del>{game['old_price']}</del> ₽\n"
+                caption += f"{i}. 💸 {game['name']} — {game['price']} <del>{game['old_price']}</del> ₽\n"
             else:
-                caption += f"{i}. {game['name']} - {game['price']} ₽\n"
+                caption += f"{i}. {game['name']} — {game['price']} ₽\n"
         
         caption += "\nВыбери игру для перехода в магазин ↓"
         return caption
@@ -949,7 +949,7 @@ class Bot:
             #
             txtsu.append(st567)
             if self.routes.get(message.from_user.id,{}).get('route','')=='a.search': dst=i[2]; val=''
-            txt504='\n'+str(ind)+'. '+st567+' - '+str(i[1])+' '+val+dst
+            txt504='\n'+str(ind)+'. '+st567+' — '+str(i[1])+' '+val+dst
             if i[3]!=-1:
                 txt504='\n'+str(ind)+'. 💸'+st567+': '+str(i[1])+' <del>'+str(i[3])+'</del> '+val+dst
             
@@ -1107,7 +1107,7 @@ class Bot:
                 loco=self.loco_dct.get(st567,[True,0])[0]
                 #
                 if self.routes.get(message.from_user.id,{}).get('route','')=='a2.search': dst=i[2]; val=''
-                txt504='\n'+str(ind)+'. '+st567+' - '+str(i[1])+' '+val+dst
+                txt504='\n'+str(ind)+'. '+st567+' — '+str(i[1])+' '+val+dst
                 if i[3]!=-1:
                     txt504='\n'+str(ind)+'. 💸 '+st567+': '+str(i[1])+' <del>'+str(i[3])+'</del> '+val+dst
                 
@@ -1438,7 +1438,7 @@ class Bot:
             markup=types.InlineKeyboardMarkup()
             markup.add(types.InlineKeyboardButton('Отправить заказ',callback_data='acceptorder_'+str(user)+'+'+str(len(self.stack)-1)+'$'+str(message_id)))
             markup.add(types.InlineKeyboardButton('Отменить заказ',callback_data='breakorder_'+str(user)))
-            self.my_bot.send_message(user, "🛍 Вы приобретаете: \n"+arr[0]+" - "+str(arr[1])+" ₽",reply_markup=markup)
+            self.my_bot.send_message(user, "🛍 Вы приобретаете: \n"+arr[0]+" — "+str(arr[1])+" ₽",reply_markup=markup)
             
             self.routes[user]['route']='start'
 
@@ -1544,11 +1544,18 @@ class Bot:
             self.ban_users.append(txt)
             self.routes[message.from_user.id]['route']='start'
             self.my_bot.send_message(message.from_user.id,'Пользователь заблокирован',reply_markup=self.markup2)
-    def au_list_admin(self,message):
-        txt="Администраторы:\n"
-        for key in self.auth:
-            txt+=str(key)+" - "+self.auth[key]+'\n'
-        self.my_bot.send_message(message.from_user.id,txt,reply_markup=self.markup2)
+    def au_list_admin(self, message):
+        txt = "Администраторы:\n"
+        i = 1
+        for key in self.ids:
+            name = self.auth.get(key, "без имени")
+            # Если имя содержит @, оставляем как есть. Иначе добавляем ID
+            if "@" in str(name):
+                txt += f"{i}. {name}\n"
+            else:
+                txt += f"{i}. {name} ({key})\n"
+            i += 1
+        self.my_bot.send_message(message.from_user.id, txt, reply_markup=self.markup2)
         
     def au_load_admin(self,message):
 
@@ -3839,15 +3846,14 @@ def get_text_messages(message):
             btns45 = types.KeyboardButton("🔗 Создать ссылку на игру")
           #  btns445 = types.KeyboardButton("Новое промо") btns445,
             btn_promo = types.KeyboardButton("🎟 Управление промо")
-            
-            
-            btn87= types.KeyboardButton("💰 Коды пополнения")
-            
-            btn88= types.KeyboardButton("🧧 Nintendo Switch Online")
+            btn_32 = types.KeyboardButton("➕ Новый админ")
+            btn_33 = types.KeyboardButton("➖ Удалить админа")
+            btn_34 = types.KeyboardButton("📋 Список админов")
+            btn_35 = types.KeyboardButton("💰 Управление ценами")
             
             sub_button4 = telebot.types.KeyboardButton('🔙 Назад')
             
-            markup3.add(btn1,btn3,btns45,btn_promo,btn87,btn88,sub_button4)
+            markup3.add(btn1,btn3,btns45,btn_promo,sub_button4,btn_32,btn_33,btn_34,btn_35)
             bot.my_bot.send_message(message.from_user.id, prv, parse_mode='HTML', reply_markup=markup3)
         elif message.text=='🤝 Партнер' and str(message.from_user.id) in bot.ids:
             
@@ -4029,7 +4035,7 @@ def search_game(title, platform="nswitch", exact=False):
             necash=necash*100//1/100
             
             bot.my_bot.send_message(message.from_user.id, 
-            f"Всего рефералов:{us}\nОбщая сумма заказов: {su} рублей\nОбщая сумма профита: {profit} рублей\nТекущий процент: {percent*100}%\nПроцент с продаж: {cash} рублей\nВыплачено: {necash} рублей\nК выплате: {(cash-necash)*100//1/100} рублей\nВсего заказов:{orders}\nВсего поисков рефералами:{search}")
+            f"Всего рефералов: {us}\nОбщая сумма заказов: {su} рублей\nОбщая сумма профита: {profit} рублей\nТекущий процент: {percent*100}%\nПроцент с продаж: {cash} рублей\nВыплачено: {necash} рублей\nК выплате: {(cash-necash)*100//1/100} рублей\nВсего заказов:{orders}\nВсего поисков рефералами:{search}")
         
         
         elif message.text=="📊 Статистика интеграции" and str(message.from_user.id) in bot.ids:
@@ -4350,6 +4356,43 @@ def search_game(title, platform="nswitch", exact=False):
             
 
 
+        elif bot.routes[message.from_user.id]['route']=='add_admin_auto':
+            # Проверяем, есть ли пересланное сообщение
+            if message.forward_from:
+                new_admin_id = str(message.forward_from.id)
+                new_admin_username = message.forward_from.username or "без_username"
+                new_admin_name = message.forward_from.first_name or "Unknown"
+                
+                # Добавляем в списки
+                if new_admin_id not in bot.ids:
+                    bot.ids.append(new_admin_id)
+                bot.auth[new_admin_id] = f"👤 @{new_admin_username}"
+                
+                # Сохраняем
+                db = shelve.open(ADMIN_DATA_SHELVE)
+                db['auth'] = bot.auth
+                db['ids'] = bot.ids
+                db.close()
+                
+                bot.users[str(message.from_user.id)]['route'] = 'start'
+                bot.my_bot.send_message(
+                    message.from_user.id,
+                    f"✅ Администратор добавлен:\n"
+                    f"ID: {new_admin_id}\n"
+                    f"Username: @{new_admin_username}\n"
+                    f"Имя: {new_admin_name}",
+                    reply_markup=bot.markup2
+                )
+                bot.my_bot.send_message(for_reports, 
+                    f"➕ Админ {new_admin_id} (@{new_admin_username}) добавлен менеджером {message.from_user.id}"
+                )
+            else:
+                bot.my_bot.send_message(
+                    message.from_user.id,
+                    "❌ Это не пересланное сообщение. Перешлите любое сообщение от будущего админа.\n"
+                    "Или нажмите /back для отмены.",
+                    reply_markup=bot.markup2
+                )
         elif bot.routes[message.from_user.id]['route']=='fv_delgame':
             try:
                 bot.routes[message.from_user.id]['route']=''
@@ -4502,12 +4545,31 @@ def search_game(title, platform="nswitch", exact=False):
         elif message.text=='/ban' and str(message.from_user.id) in bot.ids:
             bot.au_ban(message)
 
-        elif message.text=='/new_admin' and str(message.from_user.id) in bot.ids:
-            bot.au_new_admin(message)
-        elif message.text=='/del_admin' and str(message.from_user.id) in bot.ids:
+        elif message.text == "➕ Новый админ" and str(message.from_user.id) in bot.ids:
+            bot.users[str(message.from_user.id)]['route'] = 'add_admin_auto'
+            bot.my_bot.send_message(
+                message.from_user.id,
+                "👤 Перешлите мне любое сообщение от пользователя, которого хотите сделать админом.\n"
+                "Или нажмите /back для отмены.",
+                reply_markup=bot.markup2
+            )
+
+        elif message.text == "➖ Удалить админа" and str(message.from_user.id) in bot.ids:
             bot.au_del_admin(message)
-        elif message.text=='/list_admin' and str(message.from_user.id) in bot.ids:
+
+        elif message.text == "📋 Список админов" and str(message.from_user.id) in bot.ids:
             bot.au_list_admin(message)
+
+        elif message.text == "💰 Управление ценами" and str(message.from_user.id) in bot.ids:
+            bot.my_bot.send_message(message.from_user.id, 
+                "Используйте команды:\n"
+                "/price_help — справка\n"
+                "/price_list — текущая формула\n"
+                "/price_change — изменить\n"
+                "/yen500_change / /yen1000_change — курсы йен",
+                reply_markup=bot.markup2
+            )
+
         elif message.text=='/load_admin' and str(message.from_user.id) in bot.ids:
             bot.au_load_admin(message)
         elif message.text=='/list_popusk' and str(message.from_user.id) in bot.ids:
