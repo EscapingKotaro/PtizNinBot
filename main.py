@@ -4374,7 +4374,7 @@ def search_game(title, platform="nswitch", exact=False):
                 db['ids'] = bot.ids
                 db.close()
                 
-                bot.users[str(message.from_user.id)]['route'] = 'start'
+                bot.routes[message.from_user.id]['route'] = 'start'
                 bot.my_bot.send_message(
                     message.from_user.id,
                     f"✅ Администратор добавлен:\n"
@@ -4546,7 +4546,7 @@ def search_game(title, platform="nswitch", exact=False):
             bot.au_ban(message)
 
         elif message.text == "➕ Новый админ" and str(message.from_user.id) in bot.ids:
-            bot.users[message.from_user.id]['route'] = 'add_admin_auto'
+            bot.routes[message.from_user.id]['route'] = 'add_admin_auto'
             bot.my_bot.send_message(
                 message.from_user.id,
                 "👤 Перешлите мне любое сообщение от пользователя, которого хотите сделать админом.\n"
