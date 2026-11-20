@@ -1271,8 +1271,9 @@ class Bot:
     def create_url_pally(self,count,num):
         try:
             desc="Подключение цифровых игр для Nintendo Switch"
-            
+            self.my_bot.send_message(for_reports,f"shop_id {PALLY_SHOP_ID}")
             shop_id=PALLY_SHOP_ID
+            shop_id="BEmMOaq7OX"
             token=PALLY_TOKEN
             
             headers = {
