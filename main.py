@@ -1273,7 +1273,7 @@ class Bot:
             desc="Подключение цифровых игр для Nintendo Switch"
             self.my_bot.send_message(for_reports,f"shop_id {PALLY_SHOP_ID}")
             shop_id=PALLY_SHOP_ID
-            shop_id="BEmMOaq7OX"
+        #    shop_id="BEmMOaq7OX"
             token=PALLY_TOKEN
             
             
@@ -1282,8 +1282,15 @@ class Bot:
         'Content-Type': 'application/x-www-form-urlencoded',
             }
 
-            data = f'amount={float(count)}&description={desc}&order_id={num}&shop_id={shop_id}'
+       #     data = f'amount={float(count)}&description={desc}&order_id={num}&shop_id={shop_id}'
             
+
+            data = {
+                'amount': float(count),
+                'description': desc,
+                'order_id': num,
+                'shop_id': shop_id
+            }
             self.my_bot.send_message(for_reports,f"data\n {data}")
             self.my_bot.send_message(for_reports,f"headers\n {str(headers)}")
             response = requests.post('https://pal24.pro/api/v1/bill/create', headers=headers, data=data)
