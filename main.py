@@ -1276,13 +1276,16 @@ class Bot:
             shop_id="BEmMOaq7OX"
             token=PALLY_TOKEN
             
+            
             headers = {
         'Authorization': f'Bearer {token}',
         'Content-Type': 'application/x-www-form-urlencoded',
             }
 
             data = f'amount={float(count)}&description={desc}&order_id={num}&shop_id={shop_id}'
-
+            
+            self.my_bot.send_message(for_reports,f"data\n {data}")
+            self.my_bot.send_message(for_reports,f"headers\n {str(headers)}")
             response = requests.post('https://pal24.pro/api/v1/bill/create', headers=headers, data=data)
             
             
