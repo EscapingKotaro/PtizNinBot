@@ -1289,7 +1289,7 @@ class Bot:
             
             
             if str(response.status_code)!="200":
-                return "Ошибка: "+str(response.status_code)
+                return "Ошибка: "+str(response.status_code)+str(response.json())
             else:
                 url=str(response.json()["link_page_url"])
                 bill_id=str(response.json()["bill_id"])
