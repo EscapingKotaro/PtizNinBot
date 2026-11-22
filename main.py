@@ -4365,45 +4365,6 @@ def search_game(title, platform="nswitch", exact=False):
             bot.favo[str(message.from_user.id)]=fv
             bot.my_bot.send_message(message.from_user.id, str(gm)+" успешно добавлена в 🌟 Избранное. Вы получите уведомление, когда на игру будет действовать скидка",reply_markup=markupin)
             
-
-
-        elif bot.routes[message.from_user.id]['route']=='add_admin_auto':
-            # Проверяем, есть ли пересланное сообщение
-            if message.forward_from:
-                new_admin_id = str(message.forward_from.id)
-                new_admin_username = message.forward_from.username or "без_username"
-                new_admin_name = message.forward_from.first_name or "Unknown"
-                
-                # Добавляем в списки
-                if new_admin_id not in bot.ids:
-                    bot.ids.append(new_admin_id)
-                bot.auth[new_admin_id] = f"👤 @{new_admin_username}"
-                
-                # Сохраняем
-                db = shelve.open(ADMIN_DATA_SHELVE)
-                db['auth'] = bot.auth
-                db['ids'] = bot.ids
-                db.close()
-                
-                bot.routes[message.from_user.id]['route'] = 'start'
-                bot.my_bot.send_message(
-                    message.from_user.id,
-                    f"✅ Администратор добавлен:\n"
-                    f"ID: {new_admin_id}\n"
-                    f"Username: @{new_admin_username}\n"
-                    f"Имя: {new_admin_name}",
-                    reply_markup=bot.markup2
-                )
-                bot.my_bot.send_message(for_reports, 
-                    f"➕ Админ {new_admin_id} (@{new_admin_username}) добавлен менеджером {message.from_user.id}"
-                )
-            else:
-                bot.my_bot.send_message(
-                    message.from_user.id,
-                    "❌ Это не пересланное сообщение. Перешлите любое сообщение от будущего админа.\n"
-                    "Или нажмите /back для отмены.",
-                    reply_markup=bot.markup2
-                )
         elif bot.routes[message.from_user.id]['route']=='fv_delgame':
             try:
                 bot.routes[message.from_user.id]['route']=''
@@ -4827,6 +4788,45 @@ def search_game(title, platform="nswitch", exact=False):
         elif route=='au_new_admin2': bot.au_new_admin3(message)
         elif route=='au_del_admin': bot.au_del_admin2(message)
         elif route=='au_lpr' and message.text=='/accept': bot.au_lpr2(message)
+
+
+        elif bot.routes[message.from_user.id]['route']=='add_admin_auto':
+            # Проверяем, есть ли пересланное сообщение
+            if message.forward_from:
+                new_admin_id = str(message.forward_from.id)
+                new_admin_username = message.forward_from.username or "без_username"
+                new_admin_name = message.forward_from.first_name or "Unknown"
+                
+                # Добавляем в списки
+                if new_admin_id not in bot.ids:
+                    bot.ids.append(new_admin_id)
+                bot.auth[new_admin_id] = f"👤 @{new_admin_username}"
+                
+                # Сохраняем
+                db = shelve.open(ADMIN_DATA_SHELVE)
+                db['auth'] = bot.auth
+                db['ids'] = bot.ids
+                db.close()
+                
+                bot.routes[message.from_user.id]['route'] = 'start'
+                bot.my_bot.send_message(
+                    message.from_user.id,
+                    f"✅ Администратор добавлен:\n"
+                    f"ID: {new_admin_id}\n"
+                    f"Username: @{new_admin_username}\n"
+                    f"Имя: {new_admin_name}",
+                    reply_markup=bot.markup2
+                )
+                bot.my_bot.send_message(for_reports, 
+                    f"➕ Админ {new_admin_id} (@{new_admin_username}) добавлен менеджером {message.from_user.id}"
+                )
+            else:
+                bot.my_bot.send_message(
+                    message.from_user.id,
+                    "❌ Это не пересланное сообщение. Перешлите любое сообщение от будущего админа.\n"
+                    "Или нажмите /back для отмены.",
+                    reply_markup=bot.markup2
+                )
         else: print(route)
         
         now=datetime.now()
