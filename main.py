@@ -3861,10 +3861,25 @@ def get_text_messages(message):
             btn_33 = types.KeyboardButton("➖ Удалить админа")
             btn_34 = types.KeyboardButton("📋 Список админов")
             btn_35 = types.KeyboardButton("💰 Управление ценами")
+            btn_67 = types.KeyboardButton("👨‍💻 Управление админами")
+            
             
             sub_button4 = telebot.types.KeyboardButton('🔙 Назад')
             
-            markup3.add(btn1,btn3,btns45,btn_promo,sub_button4,btn_32,btn_33,btn_34,btn_35)
+            markup3.add(btn1,btn3,btns45,btn_promo,sub_button4,btn_35,btn_67)
+            bot.my_bot.send_message(message.from_user.id, prv, parse_mode='HTML', reply_markup=markup3)
+        elif message.text=='👨‍💻 Управление админами' and str(message.from_user.id) in bot.ids:
+            
+            prv='👨‍💻 Управление админами'
+            markup3 = telebot.types.ReplyKeyboardMarkup(resize_keyboard=True)
+            btn_32 = types.KeyboardButton("➕ Новый админ")
+            btn_33 = types.KeyboardButton("➖ Удалить админа")
+            btn_34 = types.KeyboardButton("📋 Список админов")
+            
+            
+            sub_button4 = telebot.types.KeyboardButton('🔙 Назад')
+            
+            markup3.add(btn_32,btn_33,btn_34,sub_button4)
             bot.my_bot.send_message(message.from_user.id, prv, parse_mode='HTML', reply_markup=markup3)
         elif message.text=='🤝 Партнер' and str(message.from_user.id) in bot.ids:
             
