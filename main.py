@@ -4565,10 +4565,10 @@ def search_game(title, platform="nswitch", exact=False):
                 reply_markup=bot.markup2
             )
 
-        elif message.text == "➖ Удалить админа" and str(message.from_user.id) in bot.ids:
+        elif (message.text == "➖ Удалить админа" or message.text=="/del_admin") and str(message.from_user.id) in bot.ids:
             bot.au_del_admin(message)
 
-        elif message.text == "📋 Список админов" and str(message.from_user.id) in bot.ids:
+        elif (message.text == "📋 Список админов" or message.text=="/list_admin") and str(message.from_user.id) in bot.ids:
             bot.au_list_admin(message)
 
         elif message.text == "💰 Управление ценами" and str(message.from_user.id) in bot.ids:
@@ -4612,6 +4612,9 @@ def search_game(title, platform="nswitch", exact=False):
             db.close()
 
             
+
+        elif message.text=='/new_admin' and str(message.from_user.id) in bot.ids:
+            bot.au_new_admin(message)
 
         elif message.text=='/admin_help' and str(message.from_user.id) in bot.ids:
             bot.my_bot.send_message(message.from_user.id, '''
