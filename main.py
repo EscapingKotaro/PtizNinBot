@@ -116,7 +116,16 @@ BIG_WALK_DISCOUNT_DAYS = 7              # скидка висит 7 дней п�
 
 user_data={}
 
+VIET_REGEX = re.compile(r'[ăĂâÂđĐêÊôÔơƠưƯ]')
 
+def is_vietnamese(user):
+    # Склеиваем имя и фамилию
+    full_name = f"{user.first_name or ''} {user.last_name or ''}"
+
+    # Если нашли совпадение - это вьетнамский скрипт
+    if VIET_REGEX.search(full_name):
+        return True
+    return False
 
 
 def send_report(component: str, report: str, timestamp: datetime = None):
@@ -3462,9 +3471,11 @@ bot=Bot()
 
 
 
-
 @bot.my_bot.message_handler(content_types=['photo'])
 def get_photo(message):
+
+       if is_vietnamese(message.from_user):
+           return
    
        route=bot.routes.get(message.from_user.id,dict())
        if route==dict(): bot.routes[message.from_user.id]={'route':'start'}
@@ -3500,6 +3511,9 @@ def escape_md_v2(text):
                        
 @bot.my_bot.message_handler(content_types=['text'])
 def get_text_messages(message):
+
+    if is_vietnamese(message.from_user):
+        return
     try:
         chat = message.chat
         if message.chat.type in ["group", "supergroup", "channel"]:
@@ -4870,6 +4884,10 @@ def search_game(title, platform="nswitch", exact=False):
 
 @bot.my_bot.callback_query_handler(func=lambda callback: True)
 def callback_message(callback):
+
+
+    if is_vietnamese(callback.from_user):
+        return
     try:
         id1=callback.data[:callback.data.find('_')]
 
